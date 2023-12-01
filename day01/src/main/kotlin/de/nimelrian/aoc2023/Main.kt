@@ -2,7 +2,7 @@ package de.nimelrian.aoc2023
 
 import de.nimelrian.aoc.aoc
 
-val digitsToDigits = (0..10).associateBy { it.toString() }
+val digitsToDigits = (0..<10).associateBy { it.toString() }
 val wordsToDigits = mapOf(
     "one" to 1,
     "two" to 2,
