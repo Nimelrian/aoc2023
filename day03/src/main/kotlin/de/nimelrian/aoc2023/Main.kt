@@ -4,6 +4,7 @@ import de.nimelrian.aoc.aoc
 
 fun main() = aoc {
     part(solver = ::solve1)
+    part(solver = ::solve2)
 }
 
 fun solve1(lines: Sequence<String>): Int {
@@ -37,3 +38,25 @@ fun getSearchIndices(baseIndex: Int, lineLength: Int, max: Int): List<Int> {
 }
 
 fun Char.isSymbol() = (this.isDigit() || this == '.' || this == '\n').not()
+
+fun solve2(lines: Sequence<String>): Int {
+    val wholeSchematic = lines.joinToString("\n")
+    val lineLength = wholeSchematic.indexOf('\n') + 1
+
+    val symbolIndices = wholeSchematic.asSequence()
+        .mapIndexedNotNull { index, char -> index.takeIf { char.isSymbol() } }
+        .toList()
+    val symbols = symbolIndices.map {
+        Pair(wholeSchematic[it], getSearchIndices(it, lineLength, wholeSchematic.length - 1))
+    }
+    val gearSymbols = symbols.filter { it.first == '*' }
+
+    val numbers = Regex("\\d+")
+        .findAll(wholeSchematic)
+        .map { Pair(it.value.toInt(), it.range) }
+        .toList()
+
+    return gearSymbols.map { (_, searchIndices) -> numbers.filter { (_, numberIndices) -> searchIndices.any { it in numberIndices } }.map { it.first } }
+        .filter { it.size == 2 }
+        .sumOf { it[0] * it[1] }
+}
