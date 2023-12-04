@@ -16,10 +16,9 @@ dependencies {
 }
 
 application {
-    mainClass.set("de.nimelrian.aoc2022.MainKt")
+    mainClass.set("de.nimelrian.aoc2022.Day4Kt")
 }
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
-
