@@ -1,5 +1,8 @@
 package de.nimelrian.aoc
 
+import kotlin.time.measureTime
+import kotlin.time.measureTimedValue
+
 typealias Solver = (Sequence<String>) -> Any
 
 class Aoc {
@@ -13,8 +16,11 @@ class Aoc {
 
     fun run() {
         parts.forEachIndexed { index, part ->
-            val solution = part.run()
-            println("Solution for part ${index + 1}: $solution")
+            val solution = measureTimedValue {
+                part.run()
+            }
+
+            println("Solution for part ${index + 1}: ${solution.value}. Calculation took ${solution.duration}")
         }
     }
 }

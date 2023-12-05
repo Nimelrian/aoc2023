@@ -11,7 +11,7 @@ package de.nimelrian.aoc
  * * Chunk 3 - 6, 7, 8
  *
  */
-fun <T> Sequence<T>.chunkByPredicate(predicate: (T) -> Boolean): Sequence<List<T>> {
+fun <T> Sequence<T>.chunkByPredicate(skipMatchingItem: Boolean = false, predicate: (T) -> Boolean): Sequence<List<T>> {
     return sequence {
         val currentChunk = mutableListOf<T>()
         for (item in this@chunkByPredicate) {
@@ -19,9 +19,12 @@ fun <T> Sequence<T>.chunkByPredicate(predicate: (T) -> Boolean): Sequence<List<T
                 // Yield the chunked elements up to this item
                 yield(currentChunk.toList())
                 currentChunk.clear()
+                if (!skipMatchingItem) {
+                    currentChunk += item
+                }
+            } else {
+                currentChunk += item
             }
-
-            currentChunk += item
         }
 
         // Last chunk
@@ -34,4 +37,10 @@ inline fun <T> Sequence<T>.takeWhileInclusive(crossinline predicate: (T) -> Bool
         yield(item)
         if (!predicate(item)) break
     }
+}
+
+fun <T> Sequence<T>.takeHead() : Pair<T, Sequence<T>> {
+    val iter = this.iterator()
+    val head = iter.next()
+    return Pair(head, iter.asSequence())
 }
