@@ -39,7 +39,7 @@ inline fun <T> Sequence<T>.takeWhileInclusive(crossinline predicate: (T) -> Bool
     }
 }
 
-fun <T> Sequence<T>.takeHead() : Pair<T, Sequence<T>> {
+fun <T> Sequence<T>.takeHead(): Pair<T, Sequence<T>> {
     val iter = this.iterator()
     val head = iter.next()
     return Pair(head, iter.asSequence())

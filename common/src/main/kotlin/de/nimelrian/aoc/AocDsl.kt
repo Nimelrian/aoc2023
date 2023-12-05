@@ -1,6 +1,5 @@
 package de.nimelrian.aoc
 
-import kotlin.time.measureTime
 import kotlin.time.measureTimedValue
 
 typealias Solver = (Sequence<String>) -> Any

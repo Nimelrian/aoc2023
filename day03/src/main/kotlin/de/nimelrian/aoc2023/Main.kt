@@ -12,8 +12,8 @@ fun solve1(lines: Sequence<String>): Int {
     val lineLength = wholeSchematic.indexOf('\n') + 1
 
     val symbolIndices = wholeSchematic.asSequence()
-            .mapIndexedNotNull { index, char -> index.takeIf { char.isSymbol() } }
-            .toList()
+        .mapIndexedNotNull { index, char -> index.takeIf { char.isSymbol() } }
+        .toList()
     val symbols = symbolIndices.map {
         Pair(wholeSchematic[it], getSearchIndices(it, lineLength, wholeSchematic.length - 1))
     }
@@ -56,7 +56,9 @@ fun solve2(lines: Sequence<String>): Int {
         .map { Pair(it.value.toInt(), it.range) }
         .toList()
 
-    return gearSymbols.map { (_, searchIndices) -> numbers.filter { (_, numberIndices) -> searchIndices.any { it in numberIndices } }.map { it.first } }
+    return gearSymbols.map { (_, searchIndices) ->
+        numbers.filter { (_, numberIndices) -> searchIndices.any { it in numberIndices } }.map { it.first }
+    }
         .filter { it.size == 2 }
         .sumOf { it[0] * it[1] }
 }

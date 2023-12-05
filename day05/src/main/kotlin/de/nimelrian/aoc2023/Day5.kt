@@ -1,6 +1,5 @@
 package de.nimelrian.aoc2023
 
-import de.nimelrian.aoc.From
 import de.nimelrian.aoc.aoc
 import de.nimelrian.aoc.chunkByPredicate
 import de.nimelrian.aoc.takeHead
@@ -36,7 +35,7 @@ fun solve2(lines: Sequence<String>): Long {
         .split(' ').asSequence()
         .map(String::toLong)
         .chunked(2)
-        .flatMap { (start, length) -> (start..<(start+length)).asSequence() }
+        .flatMap { (start, length) -> (start..<(start + length)).asSequence() }
 
     val maps = buildMaps(mapChunks)
     return solveForSeeds(seeds, maps)
